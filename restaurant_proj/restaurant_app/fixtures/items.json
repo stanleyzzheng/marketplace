@@ -1,0 +1,112 @@
+[
+  {
+    "model": "restaurant_app.item",
+    "pk": 3,
+    "fields": {
+      "title": "House Fried Rice",
+      "description": "chicken, beef, shrimp",
+      "category": 2,
+      "price": 10.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 4,
+    "fields": {
+      "title": "Shrimp Fried Rice",
+      "description": "",
+      "category": 2,
+      "price": 10.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 6,
+    "fields": {
+      "title": "Chicken Fried Rice",
+      "description": "",
+      "category": 2,
+      "price": 10.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 7,
+    "fields": {
+      "title": "House Egg Foo Young",
+      "description": "beef, shrimp, chicken",
+      "category": 3,
+      "price": 8.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 8,
+    "fields": {
+      "title": "Beef w/ Broccoli",
+      "description": "",
+      "category": 4,
+      "price": 12.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 9,
+    "fields": {
+      "title": "Kung Pao Chicken",
+      "description": "",
+      "category": 5,
+      "price": 10.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 10,
+    "fields": {
+      "title": "Chicken with Broccoli",
+      "description": "",
+      "category": 5,
+      "price": 10.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 11,
+    "fields": {
+      "title": "Chicken with Cashews",
+      "description": "",
+      "category": 5,
+      "price": 10.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 12,
+    "fields": {
+      "title": "Orange Chicken",
+      "description": "",
+      "category": 6,
+      "price": 12.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 13,
+    "fields": {
+      "title": "Sesame Chicken",
+      "description": "",
+      "category": 6,
+      "price": 12.0
+    }
+  },
+  {
+    "model": "restaurant_app.item",
+    "pk": 14,
+    "fields": {
+      "title": "Shrimp Egg Foo Young",
+      "description": "",
+      "category": 3,
+      "price": 10.0
+    }
+  }
+]
