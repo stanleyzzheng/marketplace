@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,9 @@ SECRET_KEY = "django-insecure-+gl)^s(f3!#5&b(+d_@o)y*&blo1o4z+5+bbuyo@s%^u7&%c)9
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["https://regularsizewebsite.com"]
+# CSRF_TRUSTED_ORIGINS = ["https://regularsizewebsite.com"]
+# CSRF_TRUSTED_ORIGINS = ["http://localhost:8000/"]
+
 
 # Application definition
 
@@ -126,4 +129,6 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8000/"]
+
+if os.getenv("DJANGO_DEVELOPMENT") == "true":
+    from .settingsdev import *  # or specific overrides
