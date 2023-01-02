@@ -23,7 +23,7 @@ function AddItemPage() {
     // const response = await axios.post("/category");
   };
   const request = async () => {
-    const response = await axios.get("/api/categories");
+    const response = await axios.get("/api/categories/");
     // console.log(response.data);
     setCategories(response.data);
   };
@@ -31,10 +31,13 @@ function AddItemPage() {
     request();
   }, []);
 
-  const mapCategories = () =>
-    categories.map((category) => (
+  const mapCategories = () => {
+    console.log(categories);
+
+    return categories.map((category) => (
       <option value={category.id}>{category.title}</option>
     ));
+  };
 
   return (
     <>

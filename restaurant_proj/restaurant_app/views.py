@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status
 
-# from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Item, Category, AppUser as User
 from rest_framework.decorators import api_view
 from .serializers import (
@@ -11,7 +11,8 @@ from .serializers import (
 )
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
-
+from django.core import serializers
+import json
 
 # Create your views here.
 
@@ -76,27 +77,10 @@ def Users(request):
 @api_view(["GET", "POST"])
 def category(request):
     if request.method == "GET":
-        categories = Category.objects.all().values()
-
+        categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
-        # print(categories)
-        # return JsonResponse({"categories": list(categories)}, status=200)
-        # print(serializer.get_field_names)
-
     elif request.method == "POST":
-        # try:
-
-        #     title = request.data["title"]
-        #     print(title)
-        #     print(request.data)
-        #     new_category = Category.objects.create(title=title)
-        #     tmpJson = serializers.serialize("json", new_category)
-        #     tmpObj = json.loads(tmpJson)
-        #     return JsonResponse(json.dumps(tmpObj), safe=False)
-        # except:
-        #     return JsonResponse("failed to create Category", status=400)
-
         serializer = CategorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
