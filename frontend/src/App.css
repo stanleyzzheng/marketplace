@@ -77,3 +77,23 @@ h1 {
 .description {
   height: 12rem;
 }
+.container {
+  display: flex;
+  justify-content: center;
+}
+/* buttons */
+.btn {
+  border-radius: 9px;
+  padding: 1.2rem;
+
+  width: 9rem;
+}
+
+/* forms */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60rem;
+  width: 60rem;
+}

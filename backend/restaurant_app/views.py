@@ -26,16 +26,9 @@ import json
 @api_view(["POST"])
 def sign_up_user(request):
     if request.method == "POST":
-        # print(request.data)
-        # username = request.data["username"]
-        email = request.data["email"]
-        # request.data["username"] = email
 
+        request.data["username"] = request.data["email"]
         # password = request.data["password"]
-        # new_user = User.objects.create_user(username=email, password=password, email=email)
-        # new_user = User.objects.create_user(username=email, password=password, email=email)
-        # return Response({"created": "True"}, status=status.HTTP_201_CREATED)
-        request.data["username"] = email
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             # print(serializer.data)
@@ -56,14 +49,17 @@ def login(request):
     if request.method == "POST":
         email = request.data["email"]
         password = request.data["password"]
+        request.data["username"] = request.data["email"]
         serializer = UserSerializer(data=request.data)
-        # if serializer.is_valid():
+        if serializer.is_valid():
 
-        # user = authenticate(username=email, password=password)
-        # if user is not None:
-        #     if user.is_active:
-        #         login(request, user)
-        #         return Response()
+            user = authenticate(username=email, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET", "POST"])

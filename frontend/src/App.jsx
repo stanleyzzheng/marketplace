@@ -10,6 +10,8 @@ import CategoryPage from "./pages/CategoryPage";
 import ItemPage from "./pages/ItemPage";
 import CreateCategoryPage from "./pages/CreateCategoryPage";
 import AddItemPage from "./pages/AddItemPage";
+import SignUpForm from "./forms/SignUpForm";
+import LoginForm from "./forms/LoginForm";
 // import getCookie from "./js/utils";
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path="/items" element={<ItemPage />} />
           <Route path="/addCategory" element={<CreateCategoryPage />} />
           <Route path="/addItem" element={<AddItemPage />} />
+          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/login" element={<LoginForm />} />
         </Routes>
       </Router>
     </div>
