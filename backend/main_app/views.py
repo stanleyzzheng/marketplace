@@ -1,35 +1,42 @@
 from django.shortcuts import render
-from rest_framework import status
+from rest_framework import status, permissions
 
-from django.http import HttpResponse, JsonResponse
-from .models import Item, Category, AppUser as User
-from rest_framework.decorators import api_view
+# from django.http import HttpResponse, JsonResponse
+from .models import Item, Category, AppUser as User, Catalog
+
+from rest_framework.decorators import (
+    api_view,
+    permission_classes,
+    authentication_classes,
+)
+
 from .serializers import (
     CategorySerializer,
     ItemSerializer,
     UserSerializer,
+    CatalogSerializer,
+    CreateUserSerializer,
+    LoginSerializer,
 )
+
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, login, logout
-from django.core import serializers
+
+# from django.core import serializers
 import json
 
 # Create your views here.
 
-
-# def send_the_homepage(request):
-#     print("home")
-#     theIndex = open("static/index.html").read()
-#     return HttpResponse(theIndex)
-
-
+# Authentication / Registration Views
 @api_view(["POST"])
 def sign_up_user(request):
     if request.method == "POST":
 
         request.data["username"] = request.data["email"]
         # password = request.data["password"]
-        serializer = UserSerializer(data=request.data)
+        serializer = CreateUserSerializer(data=request.data)
         if serializer.is_valid():
             # print(serializer.data)
 
@@ -39,30 +46,40 @@ def sign_up_user(request):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # # print(new_user)
-    # # new_user = User.objects.create_user(username, email, password)
-    # print(request.data)
-
 
 @api_view(["POST"])
-def login(request):
+def loginUser(request):
     if request.method == "POST":
-        email = request.data["email"]
-        password = request.data["password"]
-        request.data["username"] = request.data["email"]
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
+        user = authenticate(
+            username=request.data["email"], password=request.data["password"]
+        )
+        print(user)
+        if user is not None:
+            token = Token.objects.get(user=user)
+            print(token)
+            print(user)
+            content = {"token": "token " + token.key, "user": user.username}
+            return Response(content, status=status.HTTP_200_OK)
+            # return Response(user)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    # email = request.data["email"]
+    # password = request.data["password"]
+    # request.data["username"] = request.data["email"]
+    # serializer = UserSerializer(data=request.data)
+    # if serializer.is_valid():
 
-            user = authenticate(username=email, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return Response(serializer.data, status=status.HTTP_200_OK)
+    #     user = authenticate(username=email, password=password)
+    #     if user is not None:
+    #         if user.is_active:
+    #             login(request, user)
+    #             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET", "POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([permissions.IsAuthenticated])
 def Users(request):
     if request.method == "GET":
         users = User.objects.all()
@@ -70,8 +87,26 @@ def Users(request):
         return Response(serializer.data)
 
 
+# Catalog views ####################################################
 @api_view(["GET", "POST"])
-def category(request):
+@authentication_classes([TokenAuthentication])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly])
+def catalogs(request):
+    if request.method == "GET":
+        catalogs = Catalog.objects.all()
+        serializer = CatalogSerializer(catalogs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == "POST":
+        serializer = CatalogSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+#  Category Views ####################################################
+@api_view(["GET", "POST"])
+def categories(request):
     if request.method == "GET":
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
@@ -107,7 +142,7 @@ def category_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-#
+#  Item Views ####################################################
 
 
 @api_view(["GET", "POST"])

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Item, Category, AppUser
+from .models import Item, Category, AppUser, Catalog
+from rest_framework.authtoken.models import Token
 
 
 # class UserSerializer(serializers.ModelSerializer):
@@ -19,12 +20,8 @@ from .models import Item, Category, AppUser
 #     user.save()
 #     return user
 
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AppUser
-        fields = ("id", "username", "password", "email")
-
+# registration serializer
+class CreateUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = AppUser(
             email=validated_data["email"],
@@ -33,6 +30,36 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data["password"])
         user.save()
         return user
+
+    class Meta:
+        model = AppUser
+        fields = ("id", "username", "password", "email")
+
+
+# Login serializer
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppUser
+        fields = ("id", "username", "password", "email")
+
+
+# User serializer
+class UserSerializer(serializers.ModelSerializer):
+    catalogs = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Catalog.objects.all()
+    )
+
+    class Meta:
+        model = AppUser
+        fields = ("id", "username", "password", "email", "catalogs")
+
+
+class CatalogSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source="owner.username")
+    # categories = CategorySerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Catalog
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -57,6 +84,9 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ("id", "title", "description", "items")
 
+
+CatalogSerializer.categories = CatalogSerializer(many=True, read_only=True)
+CatalogSerializer.Meta.fields = ("owner", "categories")
 
 # class ItemSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
