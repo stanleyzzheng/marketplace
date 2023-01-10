@@ -11,7 +11,7 @@ function LoginForm() {
       email: username,
       password: password,
     });
-    console.log(response.response.data);
+    console.log(response);
   };
   return (
     <>

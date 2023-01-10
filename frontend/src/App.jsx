@@ -1,4 +1,5 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 // import reactLogo from "./assets/react.svg";
 // components
 import Homepage from "./pages/HomePage";
@@ -16,6 +17,16 @@ import LoginForm from "./forms/LoginForm";
 
 function App() {
   // const [count, setCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState("123123213");
+
+  const checkAuth = async () => {
+    const response = await axios.get("/api/who_am_i/");
+    console.log(response);
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <div className="App">

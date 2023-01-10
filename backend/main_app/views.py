@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import status, permissions
+from django.middleware import csrf
 
 # from django.http import HttpResponse, JsonResponse
 from .models import Item, Category, AppUser as User, Catalog
@@ -56,25 +57,25 @@ def loginUser(request):
         print(user)
         if user is not None:
             token = Token.objects.get(user=user)
-            print(token)
-            print(user)
-            content = {"token": "token " + token.key, "user": user.username}
-            return Response(content, status=status.HTTP_200_OK)
+            response = Response()
+            response.set_cookie(
+                key="token", value=token.key, httponly=True, secure=True
+            )
+            data = {"token": "Token " + token.key, "user": user.username}
+            response.data = {"Success": "Login successfully", "data": data}
+            response.status = status.HTTP_200_OK
+            return response
             # return Response(user)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    # email = request.data["email"]
-    # password = request.data["password"]
-    # request.data["username"] = request.data["email"]
-    # serializer = UserSerializer(data=request.data)
-    # if serializer.is_valid():
 
-    #     user = authenticate(username=email, password=password)
-    #     if user is not None:
-    #         if user.is_active:
-    #             login(request, user)
-    #             return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(["GET"])
+def who_am_i(request):
+    if request.method == "GET":
+        print(request.META.get("HTTP_AUTHORIZATION"))
+        print(request.COOKIES.get("token"))
+
+        return Response(request.data)
 
 
 @api_view(["GET", "POST"])
