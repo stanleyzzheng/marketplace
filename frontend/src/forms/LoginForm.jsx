@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("hello from submit");
@@ -11,7 +13,9 @@ function LoginForm() {
       email: username,
       password: password,
     });
-    console.log(response);
+
+    navigate("/");
+    window.location.reload();
   };
   return (
     <>

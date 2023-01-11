@@ -1,10 +1,12 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 // import { SignUpButton, LoginButton } from "./Buttons";
 
 function SignUpButton() {
   return (
-    <Link className="btn" to="/signup">
+    <Link className="link" to="/signup">
       Sign Up
     </Link>
   );
@@ -12,13 +14,29 @@ function SignUpButton() {
 
 function LoginButton() {
   return (
-    <Link className="btn" to="/login">
+    <Link className="link" to="/login">
       Log In
     </Link>
   );
 }
 
-function navbar() {
+function LogOutButton() {
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    const response = await axios.post("/api/logout/");
+    console.log(response);
+    navigate("/");
+    window.location.reload();
+  };
+  return (
+    <Link className="link" onClick={handleLogOut}>
+      Log Out
+    </Link>
+  );
+}
+
+function LoggedInNavBar() {
   return (
     <>
       <nav className="main-nav">
@@ -52,6 +70,9 @@ function navbar() {
               Add Category
             </Link>
           </li>
+          <li>
+            <LogOutButton />
+          </li>
         </ul>
       </nav>
     </>
@@ -59,9 +80,9 @@ function navbar() {
 }
 
 function NavBar(props) {
-  return props.authenticated ? (
+  return props.user ? (
     <header className="header">
-      <navbar />
+      <LoggedInNavBar />
     </header>
   ) : (
     <header className="header">
@@ -76,10 +97,10 @@ function NavBar(props) {
       </nav>
       <nav>
         <ul className="supplementary-nav-list">
-          <li className="link" to="/signup">
+          <li>
             <SignUpButton />
           </li>
-          <li className="link" to="/login">
+          <li>
             <LoginButton />
           </li>
         </ul>

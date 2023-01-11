@@ -69,13 +69,42 @@ def loginUser(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+# whoami view for auth
 @api_view(["GET"])
 def who_am_i(request):
     if request.method == "GET":
-        print(request.META.get("HTTP_AUTHORIZATION"))
-        print(request.COOKIES.get("token"))
+        # print(request.META.get("HTTP_AUTHORIZATION"))
+        # print(request.COOKIES.get("token"))
 
-        return Response(request.data)
+        # create response object
+        response = Response()
+
+        # create token object
+        token = request.COOKIES.get("token")
+        print(token)
+        # validate token and find user
+        if token is not None and token != "logged out":
+            user = Token.objects.get(key=token).user
+            print(user)
+            # create data
+            data = {"token": "Token " + token, "user": user.username}
+
+            response.data = data
+            response.status = status.HTTP_200_OK
+            return response
+
+        # send Response with request.data attached.
+        return Response(data={"success": "failed, user is not logged in"})
+
+
+# logout view
+@api_view(["POST"])
+def logoutView(request):
+    if request.method == "POST":
+        response = Response()
+        response.delete_cookie("token")
+        response.data = {"Success": "Logged out successfully"}
+        return response
 
 
 @api_view(["GET", "POST"])
