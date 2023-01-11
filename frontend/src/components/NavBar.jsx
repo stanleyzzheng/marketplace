@@ -46,6 +46,7 @@ function LoggedInNavBar() {
               Home
             </Link>
           </li>
+
           <li>
             <Link className="link" to="/categories">
               Categories
@@ -96,14 +97,16 @@ function NavBar(props) {
         </ul>
       </nav>
       <nav>
-        <ul className="supplementary-nav-list">
-          <li>
-            <SignUpButton />
-          </li>
-          <li>
-            <LoginButton />
-          </li>
-        </ul>
+        {!props.user && (
+          <ul className="supplementary-nav-list">
+            <li>
+              <SignUpButton />
+            </li>
+            <li>
+              <LoginButton />
+            </li>
+          </ul>
+        )}
       </nav>
     </header>
   );

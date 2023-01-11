@@ -18,22 +18,24 @@ import LoginForm from "./forms/LoginForm";
 function App() {
   // const [count, setCount] = useState(0);
   const [user, setUser] = useState(null);
+  const [firstRender, setFirstRender] = useState(false);
 
   const checkAuth = async () => {
     const response = await axios.get("/api/who_am_i/");
     setUser(response.data.user);
 
     axios.defaults.headers.common["Authorization"] = response.data["token"];
+    setFirstRender(true);
   };
 
   useEffect(() => {
     checkAuth();
-  }, [user]);
+  }, []);
 
   return (
     <div className="App">
       <Router>
-        <NavBar user={user} />
+        {firstRender && <NavBar user={user} />}
 
         <Routes>
           <Route path="/" element={<Homepage />} />
