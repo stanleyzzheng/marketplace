@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 
-function Homepage() {
+function Homepage(props) {
   return (
     <div>
-      <h1>Welcome :)</h1>
+      <h1>Hello, {props.user} :)</h1>
       {/* <button>Sign Up</button>
       <button>Login</button>
       <button>Log Out</button> */}

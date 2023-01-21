@@ -38,7 +38,7 @@ function App() {
         {firstRender && <NavBar user={user} />}
 
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage user={user} />} />
           <Route path="/categories" element={<CategoryPage />} />
           <Route path="/items" element={<ItemPage />} />
           <Route path="/addCategory" element={<CreateCategoryPage />} />
