@@ -12,7 +12,6 @@ from rest_framework.authtoken.models import Token
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         token = Token.objects.create(user=instance)
-    
 
 
 # Create your models here.
@@ -28,13 +27,15 @@ class AppUser(AbstractUser):
 
 
 class Catalog(models.Model):
+    title = models.CharField(max_length=100, null=False)
+    description = models.CharField(max_length=100, blank=True)
     owner = models.ForeignKey(
         "AppUser", related_name="catalogs", on_delete=models.CASCADE
     )
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=100, null=False)
+    title = models.CharField(max_length=100, null=True, blank=False)
     description = models.CharField(max_length=250, blank=True)
     catalog = models.ForeignKey(
         "Catalog", related_name="categories", on_delete=models.CASCADE

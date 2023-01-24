@@ -54,14 +54,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "password", "email", "catalogs")
 
 
-class CatalogSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
-    # categories = CategorySerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Catalog
-
-
 class ItemSerializer(serializers.ModelSerializer):
     # category = serializers.CharField(source="*")
     # category = serializers.RelatedField(many=True, read_only=True)
@@ -82,11 +74,25 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ("id", "title", "description", "items")
+        # fields = ("id", "title", "description", "items")
+        fields = "__all__"
 
 
-CatalogSerializer.categories = CatalogSerializer(many=True, read_only=True)
-CatalogSerializer.Meta.fields = ("owner", "categories")
+class CatalogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Catalog
+        fields = "__all__"
+
+    owner = serializers.ReadOnlyField(source="owner.username")
+    # categories = CategorySerializer(many=True, read_only=True)
+    categories = serializers.SerializerMethodField()
+
+    def get_categories(self, obj):
+        return CategorySerializer(obj.categories).data
+
+
+# CatalogSerializer.categories = CategorySerializer(many=True, read_only=True)
+# CatalogSerializer.Meta.fields = ("id", "owner", "title", "categories")
 
 # class ItemSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
