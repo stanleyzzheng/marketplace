@@ -35,7 +35,7 @@ class Catalog(models.Model):
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=100, null=True, blank=False)
+    title = models.CharField(max_length=100, null=False)
     description = models.CharField(max_length=250, blank=True)
     catalog = models.ForeignKey(
         "Catalog", related_name="categories", on_delete=models.CASCADE
