@@ -39,6 +39,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Homepage user={user} />} />
+          <Route path="/addCatalog" element={<AddCatalogPage />} />
           <Route path="/categories" element={<CategoryPage />} />
           <Route path="/items" element={<ItemPage />} />
           <Route path="/addCategory" element={<CreateCategoryPage />} />
