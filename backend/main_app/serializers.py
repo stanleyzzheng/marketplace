@@ -84,11 +84,11 @@ class CatalogSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     owner = serializers.ReadOnlyField(source="owner.username")
-    # categories = CategorySerializer(many=True, read_only=True)
-    categories = serializers.SerializerMethodField()
+    categories = CategorySerializer(many=True, read_only=True)
+    # categories = serializers.SerializerMethodField()
 
-    def get_categories(self, obj):
-        return CategorySerializer(obj.categories).data
+    # def get_categories(self, obj):
+    #     return CategorySerializer(obj.categories).data
 
 
 # CatalogSerializer.categories = CategorySerializer(many=True, read_only=True)
