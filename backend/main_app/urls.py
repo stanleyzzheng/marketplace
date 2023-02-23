@@ -9,6 +9,7 @@ urlpatterns = [
     path("items/<int:pk>/", views.item_detail),
     # Auth url's
     path("users/", views.users),
+    path("users/<int:pk>/", views.user_detail, name="user_detail"),
     path("signup/", views.sign_up_user),
     path("login/", views.loginUser),
     path("who_am_i/", views.who_am_i),

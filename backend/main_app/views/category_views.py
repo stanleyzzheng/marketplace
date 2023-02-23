@@ -35,7 +35,7 @@ def category_detail(request, pk):
 
     if request.method == "GET":
         serializer = CategorySerializer(category)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "PUT":
         serializer = CategorySerializer(category, data=request.data)

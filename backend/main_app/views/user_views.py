@@ -20,3 +20,14 @@ def users(request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def user_detail(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
