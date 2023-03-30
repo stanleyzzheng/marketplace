@@ -5,6 +5,6 @@ from ..models import Catalog, AppUser as User
 from ..serializers import CatalogSerializer
 
 
-class TestGetCatalogDetail(APITestCase):
-    
+class TestCatalogView(APITestCase):
+
     test_catalog = {"title": "test shop"}

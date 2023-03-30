@@ -7,8 +7,8 @@ from ..serializers import CreateUserSerializer, UserSerializer
 
 class TestCreateAndGetSingleUser(APITestCase):
     test_user = {
-        "email": "stanford@gmail.com",
-        "username": "stanford@gmail.com",
+        "email": "test@gmail.com",
+        "username": "test@gmail.com",
         "password": "test123",
     }
 
@@ -29,3 +29,15 @@ class TestCreateAndGetSingleUser(APITestCase):
         user = User.objects.get(pk=self.valid_user["id"])
         serializer = UserSerializer(user)
         self.assertEqual(response.data, serializer.data)
+
+
+class TestCreateInvalidUser(APITestCase):
+    invalid_user = {"email": "test@gmail.com", "username": "test@gmail.com"}
+
+    def test_create_invalid_user(self):
+        # serializer = CreateUserSerializer(data=self.invalid_user)
+
+        response = self.client.post(
+            reverse("signup"), data=self.invalid_user, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
