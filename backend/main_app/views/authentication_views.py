@@ -74,7 +74,7 @@ def who_am_i(request):
             return response
 
         # send Response with request.data attached.
-        return Response(data={"success": "failed, user is not logged in"})
+        return Response(data={"failure": "failed, user is not logged in"})
 
 
 # logout view

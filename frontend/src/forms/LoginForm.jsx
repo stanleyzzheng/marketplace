@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
+function LoginForm(props) {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("hello from submit");
+    // console.log("hello from submit");
     const password = document.getElementById("password").value;
     const username = document.getElementById("username").value;
 
@@ -13,6 +13,12 @@ function LoginForm() {
       email: username,
       password: password,
     });
+
+    // console.log(response.data);
+
+    // console.log(props);
+    props.setUser(response.data.user);
+    localStorage.setItem("user", response.data.user);
 
     navigate("/");
     window.location.reload();

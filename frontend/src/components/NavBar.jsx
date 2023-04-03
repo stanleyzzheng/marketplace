@@ -20,13 +20,20 @@ function LoginButton() {
   );
 }
 
-function LogOutButton() {
+function LogOutButton(props) {
   const navigate = useNavigate();
 
   const handleLogOut = async () => {
     const response = await axios.post("/api/logout/");
     console.log(response);
+    // console.log(props);
+
+    props.setUser(null);
+    localStorage.removeItem("user");
+
+    // console.log(response);
     navigate("/");
+
     window.location.reload();
   };
   return (
@@ -36,7 +43,7 @@ function LogOutButton() {
   );
 }
 
-function LoggedInNavBar() {
+function LoggedInNavBar(props) {
   return (
     <>
       <nav className="main-nav">
@@ -72,7 +79,7 @@ function LoggedInNavBar() {
             </Link>
           </li>
           <li>
-            <LogOutButton />
+            <LogOutButton setUser={props.setUser} />
           </li>
         </ul>
       </nav>
@@ -80,13 +87,9 @@ function LoggedInNavBar() {
   );
 }
 
-function NavBar(props) {
-  return props.user ? (
-    <header className="header">
-      <LoggedInNavBar />
-    </header>
-  ) : (
-    <header className="header">
+function NotLoggedInNavBar() {
+  return (
+    <>
       <nav className="main-nav">
         <ul className="main-nav-list">
           <li>
@@ -97,17 +100,29 @@ function NavBar(props) {
         </ul>
       </nav>
       <nav>
-        {!props.user && (
-          <ul className="supplementary-nav-list">
-            <li>
-              <SignUpButton />
-            </li>
-            <li>
-              <LoginButton />
-            </li>
-          </ul>
-        )}
+        <ul className="supplementary-nav-list">
+          <li>
+            <SignUpButton />
+          </li>
+          <li>
+            <LoginButton />
+          </li>
+        </ul>
       </nav>
+    </>
+  );
+}
+
+function NavBar(props) {
+  console.log(props);
+
+  return (
+    <header className="header">
+      {!props.user ? (
+        <NotLoggedInNavBar />
+      ) : (
+        <LoggedInNavBar setUser={props.setUser} />
+      )}
     </header>
   );
 }

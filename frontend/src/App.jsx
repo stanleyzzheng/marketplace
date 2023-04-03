@@ -13,30 +13,39 @@ import CreateCategoryPage from "./pages/CreateCategoryPage";
 import AddItemPage from "./pages/AddItemPage";
 import SignUpForm from "./forms/SignUpForm";
 import LoginForm from "./forms/LoginForm";
+import AddCatalogPage from "./pages/AddCatalogPage";
 // import getCookie from "./js/utils";
 
 function App() {
   // const [count, setCount] = useState(0);
-  const [user, setUser] = useState(null);
-  const [firstRender, setFirstRender] = useState(false);
+  const [user, setUser] = useState(() => {
+    const user = localStorage.getItem("user");
+    console.log(user);
+
+    return user;
+  });
+  // const [firstRender, setFirstRender] = useState(false);
 
   const checkAuth = async () => {
+    // if (firstRender == true) return;
     const response = await axios.get("/api/who_am_i/");
-    setUser(response.data.user);
+    // setUser(response.data.user);
+    console.log(response.data);
+    if (response.data.user) localStorage.setItem("user", response.data.user);
 
     axios.defaults.headers.common["Authorization"] = response.data["token"];
-    setFirstRender(true);
+    // if (!firstRender && user == null) setFirstRender(true);
   };
 
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [user]);
 
   return (
     <div className="App">
       <Router>
-        {firstRender && <NavBar user={user} />}
-
+        {/* {firstRender && <NavBar user={user} />} */}
+        <NavBar user={user} setUser={setUser} />
         <Routes>
           <Route path="/" element={<Homepage user={user} />} />
           <Route path="/addCatalog" element={<AddCatalogPage />} />
@@ -45,7 +54,7 @@ function App() {
           <Route path="/addCategory" element={<CreateCategoryPage />} />
           <Route path="/addItem" element={<AddItemPage />} />
           <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/login" element={<LoginForm setUser={setUser} />} />
         </Routes>
       </Router>
     </div>
