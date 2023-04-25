@@ -1,14 +1,46 @@
+/* 
+Background-colors: #f1f3f5
+Color: #212529
+*/
+
 #root {
   max-width: 128rem;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 62.5%;
+  /* line-height: 24px; */
+  font-weight: 400;
+
+  /* color-scheme: light dark; */
+  /* color: rgba(0, 0, 0, 0.87); */
+  background-color: #f1f3f5;
+  /* color: #000; */
+  color: #212529;
+
+  /* font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%; */
+}
+* {
+  box-sizing: border-box;
+
+  padding: 0;
+  margin: 0rem;
+}
+body {
+  font-size: 1.6rem;
+}
 
 .header {
   align-items: center;
   /* background-color: #fff; */
-  background-color: #333;
+  background-color: #ced4da;
   display: flex;
 
   height: 4.8rem;
@@ -65,6 +97,9 @@ h1 {
   width: 48rem;
   gap: 1.2rem;
 }
+.search-container {
+  margin-top: 3.2rem;
+}
 .page {
   display: flex;
   flex-direction: column;
@@ -83,10 +118,16 @@ h1 {
 }
 /* buttons */
 .btn {
+  /* background-color: #f1f3f5; */
   border-radius: 9px;
-  padding: 1.2rem;
-
+  border: 1px solid black;
+  padding: 0.8rem 0.6rem;
+  cursor: pointer;
   width: 9rem;
+}
+
+.btn:hover {
+  background-color: #adb5bd;
 }
 
 /* forms */
@@ -97,3 +138,16 @@ h1 {
   height: 60rem;
   width: 60rem;
 }
+
+/* Searchbar */
+.search-input {
+  background-color: #f1f3f5;
+  border: 1px solid black;
+  padding: 0.8rem 0.6rem;
+  border-radius: 9px;
+  color: #212529;
+}
+input:focus {
+  outline: none;
+}
+/* search-btn btn */

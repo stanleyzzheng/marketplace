@@ -54,30 +54,30 @@ function LoggedInNavBar(props) {
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link className="link" to="/categories">
               Categories
             </Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <Link className="link" to="/items">
               All Items
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
       <nav className="supplementary-nav">
         <ul className="supplementary-nav-list">
           <li>
             <Link className="link" to="/addItem">
-              Add item
+              Create a new listing
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link className="link" to="/addCategory">
               Add Category
             </Link>
-          </li>
+          </li> */}
           <li>
             <LogOutButton setUser={props.setUser} />
           </li>

@@ -51,6 +51,7 @@ class Item(models.Model):
     category = models.ForeignKey(
         "Category", related_name="items", on_delete=models.CASCADE
     )
+    # owner = models.ForeignKey("AppUser", related_name="items", on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.title

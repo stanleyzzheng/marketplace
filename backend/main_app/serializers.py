@@ -48,6 +48,7 @@ class UserSerializer(serializers.ModelSerializer):
     catalogs = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Catalog.objects.all()
     )
+    # items = serializers.PrimaryKeyRelatedField(many=True, queryset=Item.objects.all())
 
     class Meta:
         model = AppUser
@@ -85,7 +86,9 @@ class CatalogSerializer(serializers.ModelSerializer):
 
     owner = serializers.ReadOnlyField(source="owner.username")
     categories = CategorySerializer(many=True, read_only=True)
-    # categories = serializers.SerializerMethodField()
 
-    # def get_categories(self, obj):
-    #     return CategorySerializer(obj.categories).data
+
+# categories = serializers.SerializerMethodField()
+
+# def get_categories(self, obj):
+#     return CategorySerializer(obj.categories).data
