@@ -29,7 +29,7 @@ function App() {
   const checkAuth = async () => {
     // if (firstRender == true) return;
     const response = await axios.get("/api/who_am_i/");
-    // setUser(response.data.user);
+    setUser(response.data.user);
     console.log(response.data);
     if (response.data.user) localStorage.setItem("user", response.data.user);
 
@@ -53,7 +53,7 @@ function App() {
           <Route path="/items" element={<ItemPage />} />
           <Route path="/addCategory" element={<CreateCategoryPage />} />
           <Route path="/addItem" element={<AddItemPage />} />
-          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
           <Route path="/login" element={<LoginForm setUser={setUser} />} />
         </Routes>
       </Router>

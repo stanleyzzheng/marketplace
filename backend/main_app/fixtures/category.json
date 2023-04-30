@@ -1,42 +1,51 @@
 [
-{
-    "model": "restaurant_app.category",
+  {
+    "model": "main_app.category",
+    "pk": 1,
+    "fields": {
+      "title": "Apparel"
+    }
+  },
+  {
+    "model": "main_app.category",
     "pk": 2,
     "fields": {
-        "title": "Fried Rice",
-        "description": "beansprout, egg, green onion"
+      "title": "Electronics"
     }
-},
-{
-    "model": "restaurant_app.category",
+  },
+  {
+    "model": "main_app.category",
     "pk": 3,
     "fields": {
-        "title": "Egg Foo Young",
-        "description": "gravy on top and w/ rice on side"
+      "title": "Entertainment"
     }
-},
-{
-    "model": "restaurant_app.category",
+  },
+  {
+    "model": "main_app.category",
     "pk": 4,
     "fields": {
-        "title": "Beef",
-        "description": "beef dishes"
+      "title": "Garden & Outdoor"
     }
-},
-{
-    "model": "restaurant_app.category",
+  },
+  {
+    "model": "main_app.category",
     "pk": 5,
     "fields": {
-        "title": "Chicken",
-        "description": "chicken"
+      "title": "Toys & Games"
     }
-},
-{
-    "model": "restaurant_app.category",
+  },
+  {
+    "model": "main_app.category",
     "pk": 6,
     "fields": {
-        "title": "House Specials",
-        "description": ""
+      "title": "Hobbies"
     }
-}
+  },
+  {
+    "model": "main_app.category",
+    "pk": 7,
+    "fields": {
+      "title": "Family"
+    }
+  }
 ]

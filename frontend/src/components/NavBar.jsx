@@ -114,7 +114,7 @@ function NotLoggedInNavBar() {
 }
 
 function NavBar(props) {
-  console.log(props);
+  // console.log(props);
 
   return (
     <header className="header">

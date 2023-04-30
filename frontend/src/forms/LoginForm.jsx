@@ -17,8 +17,8 @@ function LoginForm(props) {
     // console.log(response.data);
 
     // console.log(props);
-    props.setUser(response.data.user);
-    localStorage.setItem("user", response.data.user);
+    // props.setUser(response.data.user);
+    // localStorage.setItem("user", response.data.user);
 
     navigate("/");
     window.location.reload();

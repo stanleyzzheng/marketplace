@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function SignUpForm() {
+function SignUpForm(props) {
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("hello from submit");
@@ -12,11 +15,24 @@ function SignUpForm() {
       return;
     }
 
-    const response = await axios.post("/api/signup/", {
-      email: username,
-      password: password,
-    });
-    console.log(response.data);
+    const response = await axios
+      .post("/api/signup/", {
+        email: username,
+        password: password,
+      })
+      .then(() => {
+        navigate("/");
+        window.location.reload();
+        window.alert("Sign up succesful");
+      })
+      .catch((e) => {
+        window.alert("Sign up unsuccessful");
+        window.alert(e.request.responseText);
+      });
+    // console.log(response.data);
+    // props.setUser(response.data.username);
+
+    // localStorage.setItem("user", response.data.username);
   };
   return (
     <>

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Item, Category, AppUser, Catalog
+from .models import Item, Category, AppUser
 from rest_framework.authtoken.models import Token
 
 
@@ -45,14 +45,14 @@ class LoginSerializer(serializers.ModelSerializer):
 
 # User serializer
 class UserSerializer(serializers.ModelSerializer):
-    catalogs = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Catalog.objects.all()
-    )
+    # catalogs = serializers.PrimaryKeyRelatedField(
+    #     many=True, queryset=Catalog.objects.all()
+    # )
     # items = serializers.PrimaryKeyRelatedField(many=True, queryset=Item.objects.all())
 
     class Meta:
         model = AppUser
-        fields = ("id", "username", "password", "email", "catalogs")
+        fields = ("id", "username", "password", "email")
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -79,13 +79,13 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CatalogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Catalog
-        fields = "__all__"
+# class CatalogSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Catalog
+#         fields = "__all__"
 
-    owner = serializers.ReadOnlyField(source="owner.username")
-    categories = CategorySerializer(many=True, read_only=True)
+#     owner = serializers.ReadOnlyField(source="owner.username")
+#     categories = CategorySerializer(many=True, read_only=True)
 
 
 # categories = serializers.SerializerMethodField()

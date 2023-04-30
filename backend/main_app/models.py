@@ -26,20 +26,21 @@ class AppUser(AbstractUser):
     REQUIRED_FIELDS = []
 
 
-class Catalog(models.Model):
-    title = models.CharField(max_length=100, null=False)
-    description = models.CharField(max_length=100, blank=True)
-    owner = models.ForeignKey(
-        "AppUser", related_name="catalogs", on_delete=models.CASCADE
-    )
+# class Catalog(models.Model):
+#     title = models.CharField(max_length=100, null=False)
+#     description = models.CharField(max_length=100, blank=True)
+#     owner = models.ForeignKey(
+#         "AppUser", related_name="catalogs", on_delete=models.CASCADE
+#     )
 
 
 class Category(models.Model):
     title = models.CharField(max_length=100, null=False)
     description = models.CharField(max_length=250, blank=True)
-    catalog = models.ForeignKey(
-        "Catalog", related_name="categories", on_delete=models.CASCADE
-    )
+    
+    # catalog = models.ForeignKey(
+    #     "Catalog", related_name="categories", on_delete=models.CASCADE
+    # )
     # def __str__(self) -> str:
     #     return self.title
 
@@ -51,7 +52,7 @@ class Item(models.Model):
     category = models.ForeignKey(
         "Category", related_name="items", on_delete=models.CASCADE
     )
-    # owner = models.ForeignKey("AppUser", related_name="items", on_delete=models.CASCADE)
+    owner = models.ForeignKey("AppUser", related_name="items", on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.title
