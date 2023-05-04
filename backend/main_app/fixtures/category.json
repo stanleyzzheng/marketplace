@@ -47,5 +47,12 @@
     "fields": {
       "title": "Family"
     }
+  },
+  {
+    "model": "main_app.category",
+    "pk": 8,
+    "fields": {
+      "title": "Food"
+    }
   }
 ]
