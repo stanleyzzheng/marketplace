@@ -37,7 +37,7 @@ class AppUser(AbstractUser):
 class Category(models.Model):
     title = models.CharField(max_length=100, null=False)
     description = models.CharField(max_length=250, blank=True)
-    
+
     # catalog = models.ForeignKey(
     #     "Catalog", related_name="categories", on_delete=models.CASCADE
     # )
@@ -52,6 +52,7 @@ class Item(models.Model):
     category = models.ForeignKey(
         "Category", related_name="items", on_delete=models.CASCADE
     )
+    image = models.ImageField(upload_to="images/")
     owner = models.ForeignKey("AppUser", related_name="items", on_delete=models.CASCADE)
 
     def __str__(self) -> str:

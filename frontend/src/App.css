@@ -2,6 +2,9 @@
 Background-colors: #f1f3f5
 Color: #212529
 */
+/* .App {
+display: flex;                                               
+} */
 
 #root {
   max-width: 128rem;
@@ -99,6 +102,7 @@ h1 {
 }
 .search-container {
   margin-top: 3.2rem;
+  margin-bottom: 3.2rem;
 }
 .page {
   display: flex;
@@ -106,7 +110,7 @@ h1 {
   height: 72 rem;
   align-items: center;
 
-  width: 124rem;
+  /* width: 124rem; */
 }
 
 .description {
@@ -146,6 +150,8 @@ h1 {
   padding: 0.8rem 0.6rem;
   border-radius: 9px;
   color: #212529;
+
+  width: 48rem;
 }
 input:focus {
   outline: none;

@@ -59,10 +59,15 @@ class ItemSerializer(serializers.ModelSerializer):
     # category = serializers.CharField(source="*")
     # category = serializers.RelatedField(many=True, read_only=True)
     # category = CategorySerializer(many=True, read_only=True)
+    owner = serializers.ReadOnlyField(source="owner.username")
+    category = serializers.SlugRelatedField(
+        slug_field="title", queryset=Category.objects.all()
+    )
 
     class Meta:
         model = Item
-        fields = ("id", "title", "description", "category", "price")
+        # fields = ("id", "title", "description", "category", "price")
+        fields = "__all__"
 
 
 class CategorySerializer(serializers.ModelSerializer):
