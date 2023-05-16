@@ -11,7 +11,7 @@ function ItemCard({ item }) {
         <p className="card-text">{item.description}</p>
         <p className="card-text">${item.price}</p>
         <a href="#" className="btn btn-primary">
-          Buy now
+          Add to cart
         </a>
       </div>
     </div>

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Item, Category, AppUser
+from .models import Item, Category, AppUser, Cart
 from rest_framework.authtoken.models import Token
 
 
@@ -19,6 +19,7 @@ from rest_framework.authtoken.models import Token
 #     user.set_password(validated_data["password"])
 #     user.save()
 #     return user
+
 
 # registration serializer
 class CreateUserSerializer(serializers.ModelSerializer):
@@ -81,6 +82,12 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         # fields = ("id", "title", "description", "items")
+        fields = "__all__"
+
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
         fields = "__all__"
 
 

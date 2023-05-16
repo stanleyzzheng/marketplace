@@ -1,12 +1,13 @@
 .card {
-  width: 18rem;
+  width: 20rem;
   border: 1px solid #ccc;
   margin-bottom: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .card img {
-  height: 200px;
-  object-fit: cover;
+  /* height: 20rem; */
+  width: 100%;
+  /* object-fit: cover; */
 }
 .card-body {
   padding: 1rem;
