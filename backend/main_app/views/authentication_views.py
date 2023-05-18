@@ -10,11 +10,11 @@ from rest_framework.authtoken.models import Token
 from ..serializers import CreateUserSerializer
 from django.contrib.auth import authenticate
 
+
 # Authentication / Registration Views
 @api_view(["POST"])
 def sign_up_user(request):
     if request.method == "POST":
-
         request.data["username"] = request.data["email"]
         # password = request.data["password"]
         serializer = CreateUserSerializer(data=request.data)
@@ -41,6 +41,7 @@ def loginUser(request):
             response.set_cookie(
                 key="token", value=token.key, httponly=True, secure=True
             )
+            # for testing
             data = {"token": "Token " + token.key, "user": user.username}
             response.data = {"Success": "Login successfully", "data": data}
             response.status = status.HTTP_200_OK
@@ -61,9 +62,12 @@ def who_am_i(request):
 
         # create token object
         token = request.COOKIES.get("token")
+        print(request.COOKIES)
         print(token)
+        print(request.user)
         # validate token and find user
-        if token is not None and token != "logged out":
+        if token is not None:
+            # token = token.split(" ")[1]
             user = Token.objects.get(key=token).user
             print(user)
             # create data

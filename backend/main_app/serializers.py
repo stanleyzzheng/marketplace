@@ -1,24 +1,6 @@
 from rest_framework import serializers
-from .models import Item, Category, AppUser, Cart
+from .models import Item, Category, AppUser, CartItem, Cart
 from rest_framework.authtoken.models import Token
-
-
-# class UserSerializer(serializers.ModelSerializer):
-#     # username = serializers.EmailField(source="email")
-#     # print(username)
-
-#     class Meta:
-#         model = AppUser
-#         fields = ("id", "username", "password", "email")
-
-# def create(self, validated_data):
-#     user = AppUser(
-#         email=validated_data["email"],
-#         username=validated_data["email"],
-#     )
-#     user.set_password(validated_data["password"])
-#     user.save()
-#     return user
 
 
 # registration serializer
@@ -44,16 +26,25 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "password", "email")
 
 
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = "__all__"
+
+
 # User serializer
 class UserSerializer(serializers.ModelSerializer):
     # catalogs = serializers.PrimaryKeyRelatedField(
     #     many=True, queryset=Catalog.objects.all()
     # )
     # items = serializers.PrimaryKeyRelatedField(many=True, queryset=Item.objects.all())
+    # cart = serializers.SlugRelatedField(slug_field="id", read_only=True)
+    # cart = CartSerializer(read_only=True)
 
     class Meta:
         model = AppUser
-        fields = ("id", "username", "password", "email")
+        # fields = ("id", "username", "password", "email")
+        fields = "__all__"
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -85,22 +76,9 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CartSerializer(serializers.ModelSerializer):
+class CartItemSerializer(serializers.ModelSerializer):
+    item = serializers.SlugRelatedField(slug_field="title", queryset=Item.objects.all())
+
     class Meta:
-        model = Cart
+        model = CartItem
         fields = "__all__"
-
-
-# class CatalogSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Catalog
-#         fields = "__all__"
-
-#     owner = serializers.ReadOnlyField(source="owner.username")
-#     categories = CategorySerializer(many=True, read_only=True)
-
-
-# categories = serializers.SerializerMethodField()
-
-# def get_categories(self, obj):
-#     return CategorySerializer(obj.categories).data

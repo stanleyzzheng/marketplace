@@ -4,7 +4,7 @@ from .authentication_views import sign_up_user, loginUser, who_am_i, logoutView
 from .category_views import categories, category_detail
 from .item_views import items, item_detail
 from .user_views import users, user_detail
-from .cart_views import cart
+from .cart_views import cart_items
 
 __all__ = [
     "sign_up_user",
@@ -20,5 +20,5 @@ __all__ = [
     "users",
     "user_detail",
     # cart views
-    "cart",
+    "cart_items",
 ]

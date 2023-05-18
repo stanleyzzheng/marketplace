@@ -53,6 +53,11 @@ function LoggedInNavBar(props) {
               Home
             </Link>
           </li>
+          <li>
+            <Link className="link" to="/addItem">
+              Create a new listing
+            </Link>
+          </li>
 
           {/* <li>
             <Link className="link" to="/categories">
@@ -68,11 +73,6 @@ function LoggedInNavBar(props) {
       </nav>
       <nav className="supplementary-nav">
         <ul className="supplementary-nav-list">
-          <li>
-            <Link className="link" to="/addItem">
-              Create a new listing
-            </Link>
-          </li>
           {/* <li>
             <Link className="link" to="/addCategory">
               Add Category

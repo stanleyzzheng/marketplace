@@ -60,7 +60,7 @@ class Item(models.Model):
 
 
 class Cart(models.Model):
-    user = models.ForeignKey("AppUser", on_delete=models.CASCADE)
+    user = models.ForeignKey("AppUser", related_name="cart", on_delete=models.CASCADE)
     items = models.ManyToManyField("Item", through="CartItem")
 
     def get_total_price(self):
@@ -68,7 +68,7 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, related_name="cart_items", on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=7, decimal_places=2)
