@@ -13,16 +13,21 @@ from ..serializers import CartItemSerializer, CartSerializer
 
 @api_view(["GET", "POST"])
 def cart_items(request):
-    user = request.user
+    token = request.COOKIES.get("token")
+    if token is None:
+        return Response(data={"failure": "failed, user is not logged in"})
     if request.method == "GET":
+        user = Token.objects.get(key=token).user
         cart = Cart.objects.get(user=user)
-        print(cart)
         cart_items = CartItem.objects.filter(cart=cart)
-        print(cart_items)
+
         serializer = CartItemSerializer(cart_items, many=True)
         # cartserializer = CartSerializer(cart)
         # print(serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # return Response({"hello"})
+
     # elif request.method == "POST":
     #     serializer = CartItemSerializer(data=request.data)
     #     if serializer.is_valid():

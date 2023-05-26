@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import CartComponent from "./CartComponent";
 // import { SignUpButton, LoginButton } from "./Buttons";
 
 function SignUpButton() {
@@ -78,6 +78,11 @@ function LoggedInNavBar(props) {
               Add Category
             </Link>
           </li> */}
+          <li>
+            <Link callsName="link" to="/cart">
+              <CartComponent />
+            </Link>
+          </li>
           <li>
             <LogOutButton setUser={props.setUser} />
           </li>

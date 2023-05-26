@@ -14,6 +14,7 @@ import AddItemPage from "./pages/AddItemPage";
 import SignUpForm from "./forms/SignUpForm";
 import LoginForm from "./forms/LoginForm";
 import AddCatalogPage from "./pages/AddCatalogPage";
+import CartPage from "./pages/CartPage";
 // import getCookie from "./js/utils";
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
           <Route path="/addItem" element={<AddItemPage />} />
           <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
           <Route path="/login" element={<LoginForm setUser={setUser} />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </Router>
     </div>

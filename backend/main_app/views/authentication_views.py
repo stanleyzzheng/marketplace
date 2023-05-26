@@ -62,14 +62,15 @@ def who_am_i(request):
 
         # create token object
         token = request.COOKIES.get("token")
-        print(request.COOKIES)
-        print(token)
-        print(request.user)
+        # print(request.COOKIES)
+        # print(token)
+        # print(request.user)
         # validate token and find user
         if token is not None:
             # token = token.split(" ")[1]
+            # token = "Token " + token
             user = Token.objects.get(key=token).user
-            print(user)
+            print("user: ", user)
             # create data
             data = {"token": "Token " + token, "user": user.username}
 
