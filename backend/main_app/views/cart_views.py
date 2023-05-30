@@ -15,7 +15,7 @@ from ..serializers import CartItemSerializer, CartSerializer
 def cart_items(request):
     token = request.COOKIES.get("token")
     if token is None:
-        return Response(data={"failure": "failed, user is not logged in"})
+        return Response(data={"failure": "user is not logged in"})
     if request.method == "GET":
         user = Token.objects.get(key=token).user
         cart = Cart.objects.get(user=user)

@@ -1,9 +1,9 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartComponent from "./CartComponent";
+// import { CartContext } from "../contexts/CartContext";
 // import { SignUpButton, LoginButton } from "./Buttons";
-
 function SignUpButton() {
   return (
     <Link className="link" to="/signup">
@@ -22,6 +22,8 @@ function LoginButton() {
 
 function LogOutButton(props) {
   const navigate = useNavigate();
+  // const [cartData, setCartData] = useContext(CartContext);
+  // console.log(cartData);
 
   const handleLogOut = async () => {
     const response = await axios.post("/api/logout/");

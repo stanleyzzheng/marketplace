@@ -1,25 +1,28 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
+import { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
 function CartComponent() {
-  const [cartData, setCartData] = useState([]);
+  const [cartData, isLoading] = useContext(CartContext);
+  // const [cartData, setCartData] = useState([]);
 
-  const fetchCartData = async () => {
-    try {
-      const response = await axios.get("/cart/"); // Replace with your Django API endpoint URL
-      setCartData(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchCartData = async () => {
+  //   try {
+  //     const response = await axios.get("/api/cart/"); // Replace with your Django API endpoint URL
 
-  useEffect(() => {
-    fetchCartData();
-    console.log(cartData);
-  }, []);
+  //     setCartData(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  return <div>Cart (10 items)</div>;
+  // useEffect(() => {
+  //   fetchCartData();
+  // }, []);
+  console.log(cartData);
+  console.log(isLoading);
+
+  return !isLoading ? <div>Cart ({cartData.length})</div> : "";
+  // return <div>Cart ({cartData.length})</div>;
 }
 
 export default CartComponent;

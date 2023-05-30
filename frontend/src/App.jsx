@@ -6,7 +6,10 @@ import Homepage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// css imports
 import "./App.css";
+import "./card.css";
+// page imports
 import CategoryPage from "./pages/CategoryPage";
 import ItemPage from "./pages/ItemPage";
 import CreateCategoryPage from "./pages/CreateCategoryPage";
@@ -16,7 +19,8 @@ import LoginForm from "./forms/LoginForm";
 import AddCatalogPage from "./pages/AddCatalogPage";
 import CartPage from "./pages/CartPage";
 // import getCookie from "./js/utils";
-
+// import contexts
+import { CartProvider } from "./contexts/CartContext";
 function App() {
   // const [count, setCount] = useState(0);
   const [user, setUser] = useState(() => {
@@ -45,8 +49,11 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {/* {firstRender && <NavBar user={user} />} */}
-        <NavBar user={user} setUser={setUser} />
+        <CartProvider>
+          {/* {firstRender && <NavBar user={user} />} */}
+          <NavBar user={user} setUser={setUser} />
+        </CartProvider>
+
         <Routes>
           <Route path="/" element={<Homepage user={user} />} />
           <Route path="/addCatalog" element={<AddCatalogPage />} />
@@ -56,7 +63,9 @@ function App() {
           <Route path="/addItem" element={<AddItemPage />} />
           <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
           <Route path="/login" element={<LoginForm setUser={setUser} />} />
+          {/* <CartProvider> */}
           <Route path="/cart" element={<CartPage />} />
+          {/* </CartProvider> */}
         </Routes>
       </Router>
     </div>
