@@ -1,0 +1,41 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+}
+.cart-items {
+  list-style: none;
+}
+
+.item-image {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.item-price {
+  font-size: 1.4rem;
+  color: #777;
+}
+
+.item-quantity {
+  font-size: 1.4rem;
+  color: #777;
+}
+
+.cart-page {
+  margin: 2rem;
+}

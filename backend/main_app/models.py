@@ -55,8 +55,8 @@ class Item(models.Model):
     image = models.ImageField(upload_to="images/")
     owner = models.ForeignKey("AppUser", related_name="items", on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.title
+    # def __str__(self) -> str:
+    #     return self.title
 
 
 class Cart(models.Model):
@@ -71,4 +71,4 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name="cart_items", on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=7, decimal_places=2)
+    # price = models.DecimalField(max_digits=7, decimal_places=2)

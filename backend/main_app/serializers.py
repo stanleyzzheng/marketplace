@@ -26,12 +26,6 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "password", "email")
 
 
-class CartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cart
-        fields = "__all__"
-
-
 # User serializer
 class UserSerializer(serializers.ModelSerializer):
     # catalogs = serializers.PrimaryKeyRelatedField(
@@ -76,9 +70,23 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CartItemSerializer(serializers.ModelSerializer):
-    item = serializers.SlugRelatedField(slug_field="title", queryset=Item.objects.all())
+class CartItemRetrieveSerializer(serializers.ModelSerializer):
+    item = ItemSerializer()
 
     class Meta:
         model = CartItem
-        fields = "__all__"
+        fields = ["id", "item", "quantity", "cart"]
+
+
+class CartSerializer(serializers.ModelSerializer):
+    cart_items = CartItemRetrieveSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Cart
+        fields = ["id", "user", "cart_items"]
+
+
+class CartItemCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = ["id", "item", "quantity", "cart"]

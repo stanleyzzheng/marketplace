@@ -52,21 +52,19 @@ function App() {
         <CartProvider>
           {/* {firstRender && <NavBar user={user} />} */}
           <NavBar user={user} setUser={setUser} />
-        </CartProvider>
 
-        <Routes>
-          <Route path="/" element={<Homepage user={user} />} />
-          <Route path="/addCatalog" element={<AddCatalogPage />} />
-          <Route path="/categories" element={<CategoryPage />} />
-          <Route path="/items" element={<ItemPage />} />
-          <Route path="/addCategory" element={<CreateCategoryPage />} />
-          <Route path="/addItem" element={<AddItemPage />} />
-          <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
-          <Route path="/login" element={<LoginForm setUser={setUser} />} />
-          {/* <CartProvider> */}
-          <Route path="/cart" element={<CartPage />} />
-          {/* </CartProvider> */}
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Homepage user={user} />} />
+            <Route path="/addCatalog" element={<AddCatalogPage />} />
+            <Route path="/categories" element={<CategoryPage />} />
+            <Route path="/items" element={<ItemPage />} />
+            <Route path="/addCategory" element={<CreateCategoryPage />} />
+            <Route path="/addItem" element={<AddItemPage />} />
+            <Route path="/signup" element={<SignUpForm setUser={setUser} />} />
+            <Route path="/login" element={<LoginForm setUser={setUser} />} />
+            <Route path="/cart" element={<CartPage />} />
+          </Routes>
+        </CartProvider>
       </Router>
     </div>
   );

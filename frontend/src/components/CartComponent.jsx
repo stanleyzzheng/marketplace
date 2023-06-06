@@ -18,8 +18,6 @@ function CartComponent() {
   // useEffect(() => {
   //   fetchCartData();
   // }, []);
-  console.log(cartData);
-  console.log(isLoading);
 
   return !isLoading ? <div>Cart ({cartData.length})</div> : "";
   // return <div>Cart ({cartData.length})</div>;
